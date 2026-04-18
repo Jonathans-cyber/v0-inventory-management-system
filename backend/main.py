@@ -394,7 +394,18 @@ def get_estadisticas():
 
 @app.route('/health', methods=['GET'])
 def health():
-    return jsonify({'status': 'ok', 'message': 'API de Inventario funcionando correctamente'})
+    conn = get_db()
+    total_equipos = conn.execute('SELECT COUNT(*) FROM equipos').fetchone()[0]
+    total_proveedores = conn.execute('SELECT COUNT(*) FROM proveedores').fetchone()[0]
+    conn.close()
+    
+    return jsonify({
+        'status': 'ok',
+        'database': 'SQLite',
+        'total_equipos': total_equipos,
+        'total_proveedores': total_proveedores,
+        'message': 'API de Inventario funcionando correctamente'
+    })
 
 if __name__ == '__main__':
     app.run(debug=True, port=5000)

@@ -55,9 +55,16 @@ export default function Sidebar({ activeTab, setActiveTab }: SidebarProps) {
       </nav>
 
       <div className="mt-auto pt-4 border-t border-[var(--border)]">
-        <button className="w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--foreground)] transition-all">
+        <button
+          onClick={() => setActiveTab("configuracion")}
+          className={`w-full flex items-center gap-3 px-3 py-2.5 rounded-lg transition-all ${
+            activeTab === "configuracion"
+              ? "bg-[var(--primary)] text-white"
+              : "text-[var(--muted-foreground)] hover:bg-[var(--secondary)] hover:text-[var(--foreground)]"
+          }`}
+        >
           <Settings className="w-5 h-5" />
-          <span className="font-medium">Configuración</span>
+          <span className="font-medium">Configuracion</span>
         </button>
       </div>
     </aside>

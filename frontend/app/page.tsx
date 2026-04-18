@@ -5,6 +5,7 @@ import Sidebar from "@/components/Sidebar";
 import Dashboard from "@/components/Dashboard";
 import EquiposList from "@/components/EquiposList";
 import ProveedoresList from "@/components/ProveedoresList";
+import ConfigPanel from "@/components/ConfigPanel";
 
 export default function Home() {
   const [activeTab, setActiveTab] = useState("dashboard");
@@ -17,6 +18,7 @@ export default function Home() {
         {activeTab === "dashboard" && <Dashboard />}
         {activeTab === "equipos" && <EquiposList />}
         {activeTab === "proveedores" && <ProveedoresList />}
+        {activeTab === "configuracion" && <ConfigPanel />}
       </main>
     </div>
   );
