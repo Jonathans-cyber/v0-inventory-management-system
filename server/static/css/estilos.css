@@ -1,0 +1,21 @@
+/* Estilos complementarios al tema de Bootstrap 5. */
+
+body {
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+}
+
+.card {
+  border-radius: 0.75rem;
+}
+
+.navbar-brand {
+  letter-spacing: 0.3px;
+}
+
+code {
+  color: #b02a37;
+}
+
+main {
+  min-height: 70vh;
+}

@@ -1,0 +1,91 @@
+{% extends "base.html" %}
+{% block title %}{{ equipo.nombre }} | InventarioTI{% endblock %}
+
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">
+    <i class="bi {{ equipo.icono }} text-primary me-1"></i>{{ equipo.nombre }}
+  </h1>
+  <div class="d-flex gap-2">
+    <a href="{{ url_for('equipos.editar', equipo_id=equipo.id) }}" class="btn btn-outline-secondary">
+      <i class="bi bi-pencil me-1"></i>Editar
+    </a>
+    <a href="{{ url_for('equipos.listar') }}" class="btn btn-outline-secondary">Volver</a>
+  </div>
+</div>
+
+<div class="row g-4">
+  <div class="col-lg-5">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-header bg-white fw-semibold">Informacion del equipo</div>
+      <ul class="list-group list-group-flush">
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Tipo</span><span>{{ equipo.tipo }}</span></li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Categoria</span><span>{{ equipo.categoria }}</span></li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Marca</span><span>{{ equipo.marca or '-' }}</span></li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Modelo</span><span>{{ equipo.modelo or '-' }}</span></li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Serial</span><code>{{ equipo.serial }}</code></li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Estado</span>
+          <span class="badge text-bg-secondary">{{ equipo.estado }}</span></li>
+        <li class="list-group-item d-flex justify-content-between">
+          <span class="text-muted">Proveedor</span><span>{{ equipo.proveedor_nombre or '-' }}</span></li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="col-lg-7">
+    <div class="card border-0 shadow-sm h-100">
+      <div class="card-header bg-white fw-semibold">
+        <i class="bi bi-cpu me-1"></i>Componentes internos
+      </div>
+      <div class="table-responsive">
+        <table class="table align-middle mb-0">
+          <thead class="table-light">
+            <tr><th>Tipo</th><th>Detalle</th><th class="text-end">Accion</th></tr>
+          </thead>
+          <tbody>
+            {% for c in componentes %}
+            <tr>
+              <td>{{ c.tipo }}</td>
+              <td>{{ c.detalle }}</td>
+              <td class="text-end">
+                <form action="{{ url_for('componentes.eliminar', componente_id=c.id) }}"
+                      method="post" class="d-inline">
+                  <input type="hidden" name="equipo_id" value="{{ equipo.id }}" />
+                  <button class="btn btn-sm btn-outline-danger"><i class="bi bi-trash"></i></button>
+                </form>
+              </td>
+            </tr>
+            {% else %}
+            <tr><td colspan="3" class="text-center text-muted py-3">Sin componentes.</td></tr>
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+      <div class="card-body border-top">
+        <form action="{{ url_for('componentes.nuevo') }}" method="post" class="row g-2">
+          <input type="hidden" name="equipo_id" value="{{ equipo.id }}" />
+          <div class="col-md-4">
+            <select name="tipo" class="form-select" required>
+              {% for t in tipos_componente %}
+              <option value="{{ t }}">{{ t }}</option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="col-md-6">
+            <input name="detalle" class="form-control" placeholder="Detalle (ej. 16 GB DDR4)" required />
+          </div>
+          <div class="col-md-2 d-grid">
+            <button class="btn btn-primary"><i class="bi bi-plus-lg"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

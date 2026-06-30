@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+{% block title %}{{ 'Editar' if proveedor else 'Nuevo' }} proveedor | InventarioTI{% endblock %}
+
+{% block contenido %}
+<div class="row justify-content-center">
+  <div class="col-lg-7">
+    <h1 class="h3 mb-4">{{ 'Editar proveedor' if proveedor else 'Nuevo proveedor' }}</h1>
+
+    <div class="card border-0 shadow-sm">
+      <div class="card-body">
+        <form method="post">
+          <div class="row g-3">
+            <div class="col-md-12">
+              <label class="form-label">Nombre</label>
+              <input name="nombre" class="form-control" required
+                     value="{{ proveedor.nombre if proveedor else '' }}" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Contacto</label>
+              <input name="contacto" class="form-control"
+                     value="{{ proveedor.contacto if proveedor else '' }}" />
+            </div>
+            <div class="col-md-6">
+              <label class="form-label">Telefono</label>
+              <input name="telefono" class="form-control"
+                     value="{{ proveedor.telefono if proveedor else '' }}" />
+            </div>
+            <div class="col-md-12">
+              <label class="form-label">Email</label>
+              <input name="email" type="email" class="form-control"
+                     value="{{ proveedor.email if proveedor else '' }}" />
+            </div>
+          </div>
+          <div class="mt-4 d-flex gap-2">
+            <button type="submit" class="btn btn-primary">
+              <i class="bi bi-save me-1"></i>Guardar
+            </button>
+            <a href="{{ url_for('proveedores.listar') }}" class="btn btn-outline-secondary">Cancelar</a>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

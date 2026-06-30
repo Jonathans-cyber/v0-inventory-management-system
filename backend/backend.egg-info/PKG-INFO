@@ -1,7 +1,0 @@
-Metadata-Version: 2.4
-Name: backend
-Version: 0.1.0
-Summary: API Flask para gestión de inventario de equipos de cómputo
-Requires-Python: >=3.12
-Requires-Dist: flask>=3.0.0
-Requires-Dist: flask-cors>=4.0.0

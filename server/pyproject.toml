@@ -1,0 +1,6 @@
+[project]
+name = "inventario-factory"
+version = "1.0.0"
+description = "Gestor de inventario de equipos de computo - Demostracion del patron Factory Method"
+requires-python = ">=3.12"
+dependencies = ["flask>=3.0.0"]

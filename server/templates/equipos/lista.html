@@ -1,0 +1,59 @@
+{% extends "base.html" %}
+{% block title %}Equipos | InventarioTI{% endblock %}
+
+{% block contenido %}
+<div class="d-flex justify-content-between align-items-center mb-4">
+  <h1 class="h3 mb-0">Equipos</h1>
+  <a href="{{ url_for('equipos.nuevo') }}" class="btn btn-primary">
+    <i class="bi bi-plus-lg me-1"></i>Nuevo equipo
+  </a>
+</div>
+
+<div class="card border-0 shadow-sm">
+  <div class="table-responsive">
+    <table class="table table-hover align-middle mb-0">
+      <thead class="table-light">
+        <tr>
+          <th>Equipo</th><th>Tipo</th><th>Categoria</th>
+          <th>Marca / Modelo</th><th>Serial</th>
+          <th>Estado</th><th>Proveedor</th><th class="text-end">Acciones</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for e in equipos %}
+        <tr>
+          <td>
+            <i class="bi {{ e.icono }} me-1 text-primary"></i>
+            <a href="{{ url_for('equipos.detalle', equipo_id=e.id) }}"
+               class="text-decoration-none fw-semibold">{{ e.nombre }}</a>
+          </td>
+          <td>{{ e.tipo }}</td>
+          <td><span class="badge text-bg-light border">{{ e.categoria }}</span></td>
+          <td>{{ e.marca }} {{ e.modelo }}</td>
+          <td><code>{{ e.serial }}</code></td>
+          <td><span class="badge text-bg-secondary">{{ e.estado }}</span></td>
+          <td>{{ e.proveedor_nombre or '-' }}</td>
+          <td class="text-end">
+            <a href="{{ url_for('equipos.editar', equipo_id=e.id) }}"
+               class="btn btn-sm btn-outline-secondary">
+              <i class="bi bi-pencil"></i>
+            </a>
+            <form action="{{ url_for('equipos.eliminar', equipo_id=e.id) }}"
+                  method="post" class="d-inline"
+                  onsubmit="return confirm('Eliminar este equipo?');">
+              <button class="btn btn-sm btn-outline-danger" type="submit">
+                <i class="bi bi-trash"></i>
+              </button>
+            </form>
+          </td>
+        </tr>
+        {% else %}
+        <tr><td colspan="8" class="text-center text-muted py-4">
+          No hay equipos. Crea el primero con "Nuevo equipo".
+        </td></tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% endblock %}
